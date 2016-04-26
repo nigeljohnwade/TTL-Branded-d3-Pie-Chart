@@ -1,4 +1,4 @@
-function drawLegend(data, labels, colors, container, layout){
+function drawPieLegend(data, labels, colors, container, layout){
     var legendContainer = $("<div class='legend'></div>");
     legendContainer.addClass(layout["ttl-piechart-props"].legendPosition)
     var ul = $("<ul></ul>");

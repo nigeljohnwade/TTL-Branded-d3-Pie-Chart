@@ -55,6 +55,6 @@ function drawPieChart(data, labels, target, container, cutOthers, layout){
             return colors[i]; 
         });
     if(layout["ttl-piechart-props"].displayLegend){
-        drawLegend(data, labels, colors, container, layout);
+        drawPieLegend(data, labels, colors, container, layout);
     }
 }
