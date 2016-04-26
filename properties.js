@@ -25,6 +25,15 @@ define( [], function () {
         label: "Cut Others",
         type: "number"
     };
+    var innerRadius = {
+        ref: "ttl-piechart-props.innerRadius",
+        label: "Inner Radius % (Donut Chart)",
+        type: "number",
+        min: 0,
+        max: 100,
+        component: 'slider',
+        defaultValue: 0
+    };   
     var displayLegend = {
         ref: "ttl-piechart-props.displayLegend",
         label: "Display Legend?",
@@ -44,15 +53,22 @@ define( [], function () {
                 label: "West"
             }],
     };
-    var customSection = {
+    var labelSection = {
         component: "expandable-items",
-        label: "Labels",
+        label: "Labels & Legend",
         items: {
             chartTile: chartTitle,
             captionText: captionText,
-            cutOthers: cutOthers,
             displayLegend: displayLegend,
             legendPosition: legendPosition
+        }
+    };
+    var optionSection = {
+        component: "expandable-items",
+        label: "Options",
+        items: {
+            cutOthers: cutOthers,
+            innerRadius: innerRadius
         }
     };
     return {
@@ -62,7 +78,8 @@ define( [], function () {
             dimensions: dimensions,
             measures: measures,
             sorthing: sorting,
-            customSection: customSection
+            labelSection: labelSection,
+            optionSection: optionSection
         }
     };
 })

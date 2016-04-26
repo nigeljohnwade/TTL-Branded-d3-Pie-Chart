@@ -1,4 +1,5 @@
 function drawPieChart(data, labels, target, container, cutOthers, layout){
+    console.log(layout["ttl-piechart-props"].innerRadius);
     if(typeof cutOthers === "undefined"){
         cutOthers = 8;
     }
@@ -16,10 +17,12 @@ function drawPieChart(data, labels, target, container, cutOthers, layout){
     ];  
     var width = container.width(),
         height = container.height(),
-        radius = Math.min(width, height) / 2;
+        radius = Math.min(width, height) / 2,
+        innerRadius = Math.min(layout["ttl-piechart-props"].innerRadius * 0.01 * radius, radius -1);
+    console.log(innerRadius, radius);
     var arc = d3.svg.arc()
         .outerRadius(radius - 10)
-        .innerRadius(0);
+        .innerRadius(innerRadius - 10);
     var pie = d3.layout.pie()
         .sort(null)
         .value(function(d) { 
@@ -28,10 +31,10 @@ function drawPieChart(data, labels, target, container, cutOthers, layout){
     var translation = "translate(" + width / 2 + "," + height / 2 + ")";
     if(layout["ttl-piechart-props"].displayLegend){
         switch(layout["ttl-piechart-props"].legendPosition){
-            case 'e':
+            case 'w':
                 translation = "translate(" + (width - radius) + "," + (height / 2)  + ")";
                 break;
-            case 'w':
+            case 'e':
                 translation = "translate(" + radius + "," + height / 2 + ")";
                 break;
             }

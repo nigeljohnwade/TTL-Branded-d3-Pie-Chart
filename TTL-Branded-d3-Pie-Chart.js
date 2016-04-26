@@ -49,7 +49,7 @@ define( [
                     });
                     _labels.push(_tmp);
                 }                
-                drawPieChart(_data[0], _labels[0], 'd3-column-chart', $element, layout["ttl-table-props"].cutOthers, layout);
+                drawPieChart(_data[0], _labels[0], 'd3-column-chart', $element, layout["ttl-piechart-props"].cutOthers, layout);
             },
         };
     } );
