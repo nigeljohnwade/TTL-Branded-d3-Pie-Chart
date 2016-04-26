@@ -1,4 +1,4 @@
-function drawPieChart(data, target, container, cutOthers){
+function drawPieChart(data, labels, target, container, cutOthers, layout){
     if(typeof cutOthers === "undefined"){
         cutOthers = 8;
     }
@@ -6,6 +6,9 @@ function drawPieChart(data, target, container, cutOthers){
         var othersData = data.slice(cutOthers);
         data.splice(cutOthers, data.length - cutOthers, d3.sum(othersData));
     }
+    if(labels.length > cutOthers){
+        labels.splice(cutOthers, labels.length - cutOthers, "Others");
+    }    
     var colors = [
         '#1f78b4','#33a02c','#e31a1c','#ff7f00','#6a3d9a','#b15928',
         '#62a3d0','#72bf5b','#ef5a5a','#fe9f37','#9a77b8','#d8ac60',
@@ -22,12 +25,23 @@ function drawPieChart(data, target, container, cutOthers){
         .value(function(d) { 
             return d;
         });
+    var translation = "translate(" + width / 2 + "," + height / 2 + ")";
+    if(layout["ttl-piechart-props"].displayLegend){
+        switch(layout["ttl-piechart-props"].legendPosition){
+            case 'e':
+                translation = "translate(" + (width - radius) + "," + (height / 2)  + ")";
+                break;
+            case 'w':
+                translation = "translate(" + radius + "," + height / 2 + ")";
+                break;
+            }
+    }
     var containerSelection = d3.select(container[0]);
-    var chart= containerSelection.append("svg")
+    var chart = containerSelection.append("svg")
         .attr("width", width)
         .attr("height", height)
         .append("g")
-        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+        .attr("transform", translation);
     var g = chart.selectAll(".arc")
         .data(pie(data))
         .enter().append("g")
@@ -37,4 +51,7 @@ function drawPieChart(data, target, container, cutOthers){
         .style("fill", function(d,i) {
             return colors[i]; 
         });
+    if(layout["ttl-piechart-props"].displayLegend){
+        drawLegend(data, labels, colors, container, layout);
+    }
 }

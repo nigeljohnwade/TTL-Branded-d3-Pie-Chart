@@ -1,7 +1,8 @@
 define( [
-    "css!./css/TTL-Branded-d3-Line-Chart.css",
+    "css!./css/TTL-Branded-d3-Pie-Chart.css",
     "./libs/d3.min",
     "./libs/charts",
+    "./libs/legend",
     "./properties",
     "qlik"
     ],
@@ -9,6 +10,7 @@ define( [
         cssContent,
         d3,
         charts,
+        legend,
         props,
         qlik
         ) {
@@ -29,20 +31,25 @@ define( [
                 }
             },
             paint: function ( $element, layout ) {
-                var hc = layout.qHyperCube;
                 if ( !this.table ) {
                     this.table = qlik.table( this );
                 }
 
                 $element.empty();
-                var _data = [];
+                var _data = [], _labels = [];
                 for (var i = 0 ; i < this.table.rows[0].measures.length ; i++ ){
                     var _tmp = this.table.rows.map(function(elem){
                         return elem.measures[i].qNum;
                     });
                     _data.push(_tmp);
                 }
-                drawPieChart(_data[0], 'd3-column-chart', $element, layout["ttl-table-props"].cutOthers);
+                for (var i = 0 ; i < this.table.rows[0].dimensions.length ; i++ ){
+                    var _tmp = this.table.rows.map(function(elem){
+                        return elem.dimensions[i].qText;
+                    });
+                    _labels.push(_tmp);
+                }                
+                drawPieChart(_data[0], _labels[0], 'd3-column-chart', $element, layout["ttl-table-props"].cutOthers, layout);
             },
         };
     } );

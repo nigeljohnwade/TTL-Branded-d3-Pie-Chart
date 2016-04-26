@@ -10,20 +10,39 @@ define( [], function () {
         uses: "sorting",
     };    
     var chartTitle = {
-        ref: "ttl-table-props.chartTitle",
+        ref: "ttl-piechart-props.chartTitle",
         label: "Chart Title",
         type: "string"
     };
     var captionText = {
-        ref: "ttl-table-props.captionText",
+        ref: "ttl-piechart-props.captionText",
         label: "Caption Text",
         type: "string",
         component: "textarea"
     };
     var cutOthers = {
-        ref: "ttl-table-props.cutOthers",
+        ref: "ttl-piechart-props.cutOthers",
         label: "Cut Others",
         type: "number"
+    };
+    var displayLegend = {
+        ref: "ttl-piechart-props.displayLegend",
+        label: "Display Legend?",
+        type: "boolean",
+        defaultValue: false
+    }
+    var legendPosition = {
+        ref: "ttl-piechart-props.legendPosition",
+        component: "dropdown",
+        label: "Legend Position",
+        type: "string",
+        options: [{
+                value: "e",
+                label: "East"
+            },{
+                value: "w",
+                label: "West"
+            }],
     };
     var customSection = {
         component: "expandable-items",
@@ -31,7 +50,9 @@ define( [], function () {
         items: {
             chartTile: chartTitle,
             captionText: captionText,
-            cutOthers: cutOthers
+            cutOthers: cutOthers,
+            displayLegend: displayLegend,
+            legendPosition: legendPosition
         }
     };
     return {
