@@ -1,5 +1,4 @@
 function drawPieChart(data, labels, target, container, cutOthers, layout){
-    console.log(layout["ttl-piechart-props"].innerRadius);
     if(typeof cutOthers === "undefined"){
         cutOthers = 8;
     }
@@ -19,7 +18,6 @@ function drawPieChart(data, labels, target, container, cutOthers, layout){
         height = container.height(),
         radius = Math.min(width, height) / 2,
         innerRadius = Math.min(layout["ttl-piechart-props"].innerRadius * 0.01 * radius, radius -1);
-    console.log(innerRadius, radius);
     var arc = d3.svg.arc()
         .outerRadius(radius - 10)
         .innerRadius(innerRadius - 10);
